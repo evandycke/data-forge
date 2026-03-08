@@ -1,0 +1,12 @@
+[flyway]
+environment = "local"
+locations = ["filesystem:/flyway/sql"]
+defaultSchema = "data_forge_admin"
+createSchemas = true
+cleanDisabled = true
+
+[environments.local]
+url = "jdbc:postgresql://${env.POSTGRES_HOST}:${env.POSTGRES_PORT}/${env.POSTGRES_DB}"
+user = "${env.POSTGRES_USER}"
+password = "${env.POSTGRES_PASSWORD}"
+schemas = ["data_forge_admin", "raw_zone", "analytics", "data_quality"]

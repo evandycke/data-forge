@@ -1,0 +1,10 @@
+- from:
+    uri: "file:/work/camel/inbox?noop=true&include=.*\\.txt"
+    steps:
+      - setHeader:
+          name: Content-Type
+          constant: "text/plain"
+      - to:
+          uri: "log:camel.file?showBody=true"
+      - to:
+          uri: "http://app:8000/camel/intake/text?source=camel_file"

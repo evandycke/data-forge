@@ -1,0 +1,15 @@
+checks for dim_api_users:
+  - row_count > 0
+  - missing_count(api_user_id) = 0
+  - duplicate_count(api_user_id) = 0
+
+checks for fct_orders:
+  - row_count > 0
+  - missing_count(order_id) = 0
+  - missing_count(customer_id) = 0
+  - duplicate_count(order_id) = 0
+
+checks for fct_ingestion_summary:
+  - row_count = 5
+  - missing_count(dataset_name) = 0
+  - duplicate_count(dataset_name) = 0

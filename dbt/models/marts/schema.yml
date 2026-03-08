@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_api_users
+    description: "Dimension des utilisateurs ingérés depuis l'API."
+    columns:
+      - name: api_user_id
+        tests:
+          - not_null
+          - unique
+
+  - name: fct_orders
+    description: "Fait analytique des commandes enrichies avec le client."
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+
+  - name: fct_ingestion_summary
+    description: "Vue synthétique des volumes chargés et préparés."
+    columns:
+      - name: dataset_name
+        tests:
+          - not_null
+          - unique
+      - name: row_count
+        tests:
+          - not_null

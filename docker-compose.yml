@@ -1,0 +1,94 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: data-forge-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-raw_landing}
+      POSTGRES_USER: ${POSTGRES_USER:-lab}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lab}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/postgres/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-lab} -d ${POSTGRES_DB:-raw_landing}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: data-forge-app
+    env_file:
+      - .env
+    environment:
+      POSTGRES_HOST: postgres
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+  airflow:
+    profiles: ["airflow"]
+    build:
+      context: .
+      dockerfile: docker/airflow/Dockerfile
+    container_name: data-forge-airflow
+    env_file:
+      - .env
+    environment:
+      AIRFLOW_HOME: /opt/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/project/dags
+      POSTGRES_HOST: postgres
+    command: airflow standalone
+    volumes:
+      - airflow_home:/opt/airflow
+      - .:/opt/airflow/project
+    depends_on:
+      postgres:
+        condition: service_healthy
+      app:
+        condition: service_started
+    ports:
+      - "8080:8080"
+
+  camel:
+    profiles: ["camel"]
+    image: apache/camel-jbang:4.18.0
+    container_name: data-forge-camel
+    command:
+      [
+        "run",
+        "/work/camel/routes/file_to_fastapi.camel.yaml",
+        "--deps=camel:file,camel:http,camel:log",
+      ]
+    volumes:
+      - ./camel:/work/camel
+    depends_on:
+      app:
+        condition: service_started
+
+  flyway:
+    profiles: ["flyway"]
+    image: redgate/flyway:latest
+    env_file:
+      - .env
+    command: ["info"]
+    volumes:
+      - ./flyway/conf:/flyway/conf
+      - ./flyway/sql:/flyway/sql
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  airflow_home:

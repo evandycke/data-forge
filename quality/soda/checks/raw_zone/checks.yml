@@ -1,0 +1,23 @@
+checks for api_users:
+  - row_count > 0
+  - missing_count(id) = 0
+  - duplicate_count(id) = 0
+
+checks for txt_lines:
+  - row_count > 0
+  - missing_count(line_number) = 0
+
+checks for excel_rows:
+  - row_count > 0
+  - missing_count(customer_id) = 0
+
+checks for customers:
+  - row_count > 0
+  - missing_count(customer_id) = 0
+  - duplicate_count(customer_id) = 0
+
+checks for orders:
+  - row_count > 0
+  - missing_count(order_id) = 0
+  - missing_count(customer_id) = 0
+  - duplicate_count(order_id) = 0

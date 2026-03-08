@@ -1,0 +1,3 @@
+commande=1001;client=Alice Martin;montant=125.50
+commande=1002;client=Bruno Morel;montant=78.90
+commande=1003;client=Carla Rossi;montant=310.00

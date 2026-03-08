@@ -1,0 +1,6 @@
+gitignore: true
+globs:
+  - "**/*.md"
+ignores:
+  - "venv/**"
+  - ".venv/**"

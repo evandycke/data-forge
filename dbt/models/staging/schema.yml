@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: stg_api_users
+    description: "Utilisateurs issus de l'API JSON."
+    columns:
+      - name: api_user_id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_txt_lines
+    description: "Lignes issues du fichier TXT."
+    columns:
+      - name: line_number
+        tests:
+          - not_null
+
+  - name: stg_excel_rows
+    description: "Lignes issues du fichier Excel."
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+
+  - name: stg_customers
+    description: "Clients issus de la base source."
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_orders
+    description: "Commandes issues de la base source."
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null

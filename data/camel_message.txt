@@ -1,0 +1,1 @@
+event_type=file_drop;source=camel;payload=bonjour depuis Apache Camel

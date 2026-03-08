@@ -1,0 +1,13 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "data-forge-postgres",
+      "Group": "data-forge",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "lab",
+      "SSLMode": "prefer"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw_zone
+    description: "Zone d'atterrissage alimentée par dlt."
+    database: "{{ env_var('POSTGRES_DB', 'raw_landing') }}"
+    schema: "{{ env_var('DLT_DATASET', 'raw_zone') }}"
+    tables:
+      - name: api_users
+      - name: txt_lines
+      - name: excel_rows
+      - name: customers
+      - name: orders
