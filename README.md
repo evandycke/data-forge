@@ -62,6 +62,11 @@ cp .env.example .env
 docker compose up -d --build
 ```
 
+```bash
+copy .env.example .env
+docker compose up -d --build
+```
+
 Endpoints utiles :
 
 - FastAPI : `http://localhost:8000/docs`
