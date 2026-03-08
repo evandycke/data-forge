@@ -3,6 +3,7 @@ environment = "local"
 locations = ["filesystem:/flyway/sql"]
 defaultSchema = "data_forge_admin"
 createSchemas = true
+validateMigrationNaming = true
 cleanDisabled = true
 
 [environments.local]
