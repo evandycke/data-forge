@@ -9,26 +9,26 @@ repos:
       - id: mixed-line-ending
       - id: check-merge-conflict
 
-  # - repo: https://github.com/astral-sh/ruff-pre-commit
-  #   rev: v0.15.5
-  #   hooks:
-  #     - id: ruff
-  #       args: [--fix]
-  #     - id: ruff-format
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.5
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
 
-  # - repo: https://github.com/sqlfluff/sqlfluff
-  #   rev: 4.0.4
-  #   hooks:
-  #     - id: sqlfluff-fix
-  #     - id: sqlfluff-lint
+  - repo: https://github.com/sqlfluff/sqlfluff
+    rev: 4.0.4
+    hooks:
+      - id: sqlfluff-fix
+      - id: sqlfluff-lint
 
-  # - repo: https://github.com/hukkin/mdformat
-  #   rev: 1.0.0
-  #   hooks:
-  #     - id: mdformat
+  - repo: https://github.com/hukkin/mdformat
+    rev: 1.0.0
+    hooks:
+      - id: mdformat
 
-  # - repo: https://github.com/DavidAnson/markdownlint-cli2
-  #   rev: v0.21.0
-  #   hooks:
-  #     - id: markdownlint-cli2
-  #       exclude: ^(venv|\.venv)/
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.21.0
+    hooks:
+      - id: markdownlint-cli2
+        exclude: ^(venv|\.venv)/
